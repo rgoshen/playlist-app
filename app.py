@@ -6,6 +6,7 @@ from models import db, connect_db, Playlist, Song, PlaylistSong
 from forms import NewSongForPlaylistForm, SongForm, PlaylistForm
 
 app = Flask(__name__)
+app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///playlist-app'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
@@ -79,7 +80,8 @@ def show_all_songs():
 def show_song(song_id):
     """return a specific song"""
 
-    # ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
+    song = Song.query.get_or_404(song_id)
+    return render_template('song.html', song=song)
 
 
 @app.route("/songs/add", methods=["GET", "POST"])
