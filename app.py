@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, url_for
+from flask import Flask, redirect, render_template, url_for, flash
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_bootstrap import Bootstrap
 
@@ -101,6 +101,7 @@ def add_song():
         db.session.add(song)
         db.session.commit()
 
+        flash('Song added', 'success')
         return redirect(url_for('show_all_songs'))
 
     return render_template('new_song.html', form=form)
