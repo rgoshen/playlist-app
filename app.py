@@ -1,5 +1,6 @@
-from flask import Flask, redirect, render_template
+from flask import Flask, redirect, render_template, url_for
 from flask_debugtoolbar import DebugToolbarExtension
+from flask_bootstrap import Bootstrap
 
 from models import db, connect_db, Playlist, Song, PlaylistSong
 from forms import NewSongForPlaylistForm, SongForm, PlaylistForm
@@ -8,6 +9,9 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///playlist-app'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
+app.config['BOOTSTRAP_BOOTSWATCH_THEME'] = 'lumen'
+
+bootstrap = Bootstrap(app)
 
 connect_db(app)
 db.create_all()
@@ -86,7 +90,20 @@ def add_song():
     - if valid: add playlist to SQLA and redirect to list-of-songs
     """
 
-    # ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
+    form = SongForm()
+
+    if form.validate_on_submit():
+        title = form.title.data.title()
+        artist = form.artist.data.title()
+
+        # add to db here
+        song = Song(title=title, artist=artist)
+        db.session.add(song)
+        db.session.commit()
+
+        return redirect(url_for('show_all_songs'))
+
+    return render_template('new_song.html', form=form)
 
 
 @app.route("/playlists/<int:playlist_id>/add-song", methods=["GET", "POST"])
@@ -107,10 +124,10 @@ def add_song_to_playlist(playlist_id):
 
     if form.validate_on_submit():
 
-          # ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
+        # ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
 
-          return redirect(f"/playlists/{playlist_id}")
+        return redirect(f"/playlists/{playlist_id}")
 
     return render_template("add_song_to_playlist.html",
-                             playlist=playlist,
-                             form=form)
+                           playlist=playlist,
+                           form=form)

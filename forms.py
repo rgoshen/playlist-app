@@ -2,6 +2,8 @@
 
 from wtforms import SelectField
 from flask_wtf import FlaskForm
+from wtforms import StringField, SubmitField
+from wtforms.validators import InputRequired, Length, Optional
 
 
 class PlaylistForm(FlaskForm):
@@ -13,7 +15,11 @@ class PlaylistForm(FlaskForm):
 class SongForm(FlaskForm):
     """Form for adding songs."""
 
-    # Add the necessary code to use this form
+    title = StringField('Title', validators=[InputRequired(message='Please provide a song title'), Length(
+        max=50, message='Cannot be more than 50 characters')])
+    artist = StringField('Artist name', validators=[Length(
+        max=30, message='can not be more than 30 characters'), Optional()])
+    submit = SubmitField('Add')
 
 
 # DO NOT MODIFY THIS FORM - EVERYTHING YOU NEED IS HERE
