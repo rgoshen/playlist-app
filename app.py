@@ -7,6 +7,7 @@ from forms import NewSongForPlaylistForm, SongForm, PlaylistForm
 
 app = Flask(__name__)
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
+app.config['SECRET_KEY'] = "I'LL NEVER TELL!!"
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///playlist-app'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
@@ -17,12 +18,6 @@ bootstrap = Bootstrap(app)
 connect_db(app)
 db.create_all()
 
-app.config['SECRET_KEY'] = "I'LL NEVER TELL!!"
-
-# Having the Debug Toolbar show redirects explicitly is often useful;
-# however, if you want to turn it off, you can uncomment this line:
-#
-# app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
 debug = DebugToolbarExtension(app)
 
@@ -50,7 +45,8 @@ def show_all_playlists():
 def show_playlist(playlist_id):
     """Show detail on specific playlist."""
 
-    # ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
+    playlist = Playlist.query.get_or_404(playlist_id)
+    return render_template('playlist.html', playlist=playlist)
 
 
 @app.route("/playlists/add", methods=["GET", "POST"])
