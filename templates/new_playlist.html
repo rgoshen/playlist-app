@@ -1,7 +1,14 @@
+{% from 'bootstrap/form.html' import render_form_row %}
 {% extends 'base.html' %}
 
 {% block content %}
 
-<h1>Add a form that when submitted creates a new playlist!</h1>
+<h1>Add a new playlist</h1>
+<form id="add-playlist" action={{url_for('add_playlist')}} method="POST">
+    {{ form.csrf_token() }}
+    {{ render_form_row([form.name]) }}
+    {{ render_form_row([form.description]) }}
+    {{ render_form_row([form.submit]) }}
+</form>
 
 {% endblock %}

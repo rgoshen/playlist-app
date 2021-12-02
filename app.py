@@ -61,7 +61,19 @@ def add_playlist():
     - if valid: add playlist to SQLA and redirect to list-of-playlists
     """
 
-    # ADD THE NECESSARY CODE HERE FOR THIS ROUTE TO WORK
+    form = PlaylistForm()
+
+    if form.validate_on_submit():
+        name = form.name.data
+        description = form.description.data
+
+        playlist = Playlist(name=name, description=description)
+        db.session.add(playlist)
+        db.session.commit()
+        flash('Playlist added', 'success')
+        return redirect(url_for('show_all_playlists'))
+
+    return render_template('new_playlist.html', form=form)
 
 
 ##############################################################################
@@ -95,10 +107,9 @@ def add_song():
     form = SongForm()
 
     if form.validate_on_submit():
-        title = form.title.data.title()
-        artist = form.artist.data.title()
+        title = form.title.data
+        artist = form.artist.data
 
-        # add to db here
         song = Song(title=title, artist=artist)
         db.session.add(song)
         db.session.commit()
