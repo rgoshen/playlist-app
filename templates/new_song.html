@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<h1>Add a song</h1>
+<h1>Add a new song</h1>
 <form id="add-song" action="/songs/add" method="POST">
     {{ form.csrf_token() }}
     {{ render_form_row([form.title]) }}
