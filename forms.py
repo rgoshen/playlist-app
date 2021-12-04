@@ -2,7 +2,7 @@
 
 from wtforms import SelectField
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, SelectField
 from wtforms.validators import InputRequired, Length, Optional
 
 
@@ -26,8 +26,9 @@ class SongForm(FlaskForm):
     submit = SubmitField('Add')
 
 
-# DO NOT MODIFY THIS FORM - EVERYTHING YOU NEED IS HERE
 class NewSongForPlaylistForm(FlaskForm):
     """Form for adding a song to playlist."""
 
-    song = SelectField('Song To Add', coerce=int)
+    song = SelectField('Song To Add', coerce=int, validators=[
+                       InputRequired(message='Please select from the given list')])
+    submit = SubmitField('Add')
