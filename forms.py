@@ -1,8 +1,7 @@
 """Forms for playlist app."""
 
-from wtforms import SelectField
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, SelectField
+from wtforms import SelectField, StringField, SubmitField
 from wtforms.validators import InputRequired, Length, Optional
 
 
