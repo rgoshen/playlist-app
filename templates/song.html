@@ -5,10 +5,17 @@
 <div class="jumbotron">
   <h1>{{ song.title }}!</h1>
   <p class="lead">&ndash; {{ song.artist }}</p>
+  {% if song.playlists %}
+  <h2>Playlists</h2>
+    {% for playlist in song.playlists %}
+    <ul class="list-group">
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <a href="{{url_for('show_playlist', playlist_id=playlist.id)}}">{{ playlist.name }}</a>
+      </li>
+    </ul>
+    {% endfor %}
+  {% endif %}
 </div>
 
-<ul>
-  DISPLAY ALL OF THE PLAYLISTS THAT THIS SONG IS A PART OF
-</ul>
 
 {% endblock %}
