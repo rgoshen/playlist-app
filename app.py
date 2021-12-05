@@ -7,10 +7,7 @@ from models import Playlist, Song, connect_db, db, playlists_songs
 
 app = Flask(__name__)
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
-<<<<<<< ours
 app.config['SECRET_KEY'] = "I'LL NEVER TELL!!"
-=======
->>>>>>> theirs
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql:///playlist-app'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
