@@ -4,7 +4,7 @@
 {% block content %}
 
 <h1>Add a new playlist</h1>
-<form id="add-playlist" action={{url_for('add_playlist')}} method="POST">
+<form id="add-playlist" action="" method="POST">
     {{ form.csrf_token() }}
     {{ render_form_row([form.name]) }}
     {{ render_form_row([form.description]) }}
