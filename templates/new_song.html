@@ -4,11 +4,8 @@
 {% block content %}
 
 <h1>Add a new song</h1>
-<<<<<<< ours
 <form id="add-song" action={{url_for('add_song')}} method="POST">
-=======
 <form id="add-song" action="/songs/add" method="POST">
->>>>>>> theirs
     {{ form.csrf_token() }}
     {{ render_form_row([form.title]) }}
     {{ render_form_row([form.artist]) }}
