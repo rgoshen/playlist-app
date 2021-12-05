@@ -4,7 +4,7 @@
 {% block content %}
 
 <h1>Add a song to {{playlist.name}}</h1>
-<form action="" method="post">
+<form action="" method="POST">
     {{ form.csrf_token }}
     {{ render_field(form.song) }}
     {{ render_field(form.submit) }}
